@@ -90,6 +90,7 @@ Remove-Item ".\MicrosoftEdge.exe"
 
 # Prepare "C:\Program Files (x86)\Microsoft" for packaging Edge.wim
 # .\EdgeContent -> C:\Program Files (x86)\Microsoft
+if (Test-Path ".\EdgeContent") {Remove-Item ".\EdgeContent" -Force -Recurse}
 New-Item ".\EdgeContent" -ItemType Directory -Force | Out-Null
 
 New-Item ".\EdgeContent\EdgeUpdate\$EdgeUpdateVersion" -ItemType Directory -Force | Out-Null
@@ -107,7 +108,6 @@ Remove-Item ".\MSEDGE.7z"
 New-Item ".\EdgeContent\Edge\Application\$EdgeVersion" -ItemType Directory -Force | Out-Null
 Copy-Item ".\EdgeContent\EdgeCore\$EdgeVersion\Edge.dat" ".\EdgeContent\Edge" -Force
 Copy-Item ".\EdgeContent\EdgeCore\$EdgeVersion\*" ".\EdgeContent\Edge\Application\$EdgeVersion" -Recurse -Force
-Copy-Item ".\EdgeContent\EdgeCore\$EdgeVersion\delegatedWebFeatures.sccd" ".\EdgeContent\Edge\Application" -Force
 Copy-Item ".\EdgeContent\EdgeCore\$EdgeVersion\msedge.exe" ".\EdgeContent\Edge\Application" -Force
 Copy-Item ".\EdgeContent\EdgeCore\$EdgeVersion\msedge_proxy.exe" ".\EdgeContent\Edge\Application" -Force
 Copy-Item ".\EdgeContent\EdgeCore\$EdgeVersion\pwahelper.exe" ".\EdgeContent\Edge\Application" -Force
